@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { UserProvider } from './UserContext'
 import Home from './Home'
 import Games from './Games'
-import GameDetail from './GameDetail'
+import GameSwitch from './GameSwitch'
 import NewGame from './NewGame'
 import {
   BrowserRouter as Router,
@@ -40,7 +40,7 @@ function App() {
               <NewGame />
             </Route>
             <Route path="/games/:gameId">
-              <GameDetail />
+              <GameSwitch />
             </Route>
             <Route path="/games">
               <Games />

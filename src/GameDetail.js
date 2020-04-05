@@ -9,52 +9,61 @@ import {
 } from 'react-router-dom'
 import UserContext from './UserContext'
 
-export default function GameDetail() {
+export default function GameDetail(props) {
   const [user] = useContext(UserContext)
   const { gameId } = useParams()
-  const [game, setGame] = useState({})
+  const game = props.game
   const [joined, setJoined] = useState(false)
   const [deleted, setDeleted] = useState(false)
+  const [started, setStarted] = useState(false)
 
   useEffect(() => {
-    const fetchGame = async () => {
-      try {
-        let rest = await fetch(`http://localhost:8080/games/${gameId}`, { headers: { user } })
-        setGame(await rest.json())
-      } catch(e) {
-        console.log('Something went wrong while attempting to get a game`s details', e)
-      }
-    }
-    fetchGame()
-  }, []);
-
-  useEffect(() => {
-    if (joined) {
+    if (joined === 'pending') {
       const joinGame = async () => {
         try {
-          let rest = await fetch(`http://localhost:8080/games/${gameId}/join`, { method: 'post', headers: { user } })
-          setGame(await rest.json())
+          await fetch(`http://localhost:8080/games/${gameId}/join`, { headers: { user } })
+          setJoined('done')
         } catch(e) {
-          console.log('Something went wrong while attempting to join a game', e)
+          console.log('Something went wrong while attempting to join game', gameId, e)
         }
       }
       joinGame()
     }
-  }, [joined]);
+  }, [joined])
 
   useEffect(() => {
     if (deleted === 'pending') {
-      const joinGame = async () => {
+      const deleteGame = async () => {
         try {
           fetch(`http://localhost:8080/games/${gameId}`, { method: 'delete', headers: { user } })
           setDeleted('done')
         } catch(e) {
-          console.log('Something went wrong while attempting to join a game', e)
+          console.log('Something went wrong while attempting to delete game', gameId, e)
         }
       }
-      joinGame()
+      deleteGame()
     }
-  }, [deleted]);
+  }, [deleted])
+
+  useEffect(() => {
+    if (started === 'pending') {
+      const startGame = async () => {
+        try {
+          fetch(`http://localhost:8080/games/${gameId}/start`, { headers: { user } })
+          setStarted('done')
+        } catch(e) {
+          console.log('Something went wrong while attempting to start game', gameId, e)
+        }
+      }
+      startGame()
+    }
+  }, [started])
+
+  if (joined === 'done') {
+    return (
+      <Redirect to={`/games/${gameId}`} />
+    )
+  }
 
   if (deleted === 'done') {
     return (
@@ -65,14 +74,15 @@ export default function GameDetail() {
   if (!game.id) {
     return (
       <div>
-      <h2>Games</h2>
-      <p>Loading...</p>
-    </div>
+        <h2>Game detail</h2>
+        <p>Loading...</p>
+      </div>
     )
   }
 
-  const joinAction = !game.players.includes(user) ? <button type="button" onClick={() => setJoined(true)}>Join this game</button> : 'You are a member of this game.'
+  const joinAction = !game.players.includes(user) ? <button type="button" onClick={() => setJoined('pending')}>Join this game</button> : 'You are a member of this game.'
   const deleteAction = game.owner === user ? <button type="button" onClick={() => setDeleted('pending')}>Delete this game</button> : ''
+  const startAction = game.owner === user ?  <button type="button" onClick={() => setStarted('pending')}>Start this game</button> : ''
 
   return (
     <div>
@@ -80,6 +90,7 @@ export default function GameDetail() {
       <p>Owner: {game.owner}</p>
       <p>{deleteAction}</p>
       <p>{joinAction}</p>
+      <p>{startAction}</p>
       <h3>Players</h3>
       <ul>
         {game.players.map((player, index) => {
