@@ -1,10 +1,13 @@
 import React, { useContext } from 'react'
 import UserContext from './UserContext'
 
-export default function ActionBid({ tarotGame, handleAction }) {
+export default function ActionBid({ game, handleAction }) {
   const [user] = useContext(UserContext)
   const contracts = ['PASS', 'TAKE', 'GUARD']
+  const { tarotGame } = game
   const { hand } = tarotGame.state.players.find(p => p.id === user)
+  const { currentPlayer } = game.tarotGame.state
+  const isCurrentPlayer = currentPlayer.id === user
 
   const handleActionEvent = (event) => {
     event.preventDefault()
@@ -26,7 +29,7 @@ export default function ActionBid({ tarotGame, handleAction }) {
         <select name="contract">
           {contracts.map(c => <option key={c} value={c}>{c}</option>)}
         </select>
-        <button type="submit">Place bid</button>
+        {isCurrentPlayer ? <button type="submit">Place bid</button> : `Waiting for ${currentPlayer.id} to bid.`}
       </form>
     </div>
   )

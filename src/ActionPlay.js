@@ -1,10 +1,12 @@
 import React, { useContext } from 'react'
 import UserContext from './UserContext'
 
-export default function ActionPlay({ tarotGame, handleAction }) {
+export default function ActionPlay({ game, handleAction }) {
   const [user] = useContext(UserContext)
+  const { tarotGame } = game
   const { hand, tricks } = tarotGame.state.players.find(p => p.id === user)
-  const { board } = tarotGame.state
+  const { board, currentPlayer } = tarotGame.state
+  const isCurrentPlayer = currentPlayer.id === user
 
   const handleActionEvent = (event) => {
     event.preventDefault()
@@ -29,7 +31,7 @@ export default function ActionPlay({ tarotGame, handleAction }) {
           {hand.map((card, index) => <li key={index}><label><input type="radio" name="card" value={index} /> {card.color} {card.name}</label></li>)}
         </ul>
 
-        <button type="submit">Play selected card</button>
+        {isCurrentPlayer ? <button type="submit">Play selected card</button> : `Waiting for ${currentPlayer.id} to play.`}
       </form>
 
       <h4>Tricks ({tricks.length})</h4>

@@ -9,10 +9,10 @@ import {
 } from 'react-router-dom'
 import UserContext from './UserContext'
 
-export default function GameDetail(props) {
+export default function GameDetail({ gameState }) {
   const [user] = useContext(UserContext)
   const { gameId } = useParams()
-  const game = props.game
+  const [game, setGame] = gameState
   const [joined, setJoined] = useState(false)
   const [deleted, setDeleted] = useState(false)
   const [started, setStarted] = useState(false)
@@ -21,7 +21,8 @@ export default function GameDetail(props) {
     if (joined === 'pending') {
       const joinGame = async () => {
         try {
-          await fetch(`http://localhost:8080/games/${gameId}/join`, { headers: { user } })
+          const res = await fetch(`http://localhost:8080/games/${gameId}/join`, { headers: { user } })
+          setGame(await res.json())
           setJoined('done')
         } catch(e) {
           console.log('Something went wrong while attempting to join game', gameId, e)
@@ -49,7 +50,8 @@ export default function GameDetail(props) {
     if (started === 'pending') {
       const startGame = async () => {
         try {
-          fetch(`http://localhost:8080/games/${gameId}/start`, { headers: { user } })
+          const res = fetch(`http://localhost:8080/games/${gameId}/start`, { headers: { user } })
+          setGame(await res.json())
           setStarted('done')
         } catch(e) {
           console.log('Something went wrong while attempting to start game', gameId, e)

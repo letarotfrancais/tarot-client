@@ -1,13 +1,14 @@
 import React from 'react'
 import ActionSwitch from './ActionSwitch'
 
-export default function GameBoard({ game }) {
-  const { tarotGame } = game
-  const [action] = tarotGame.actionsSequence
+export default function GameBoard({ gameState }) {
+  const [game] = gameState
+  const { currentPlayer} = game.tarotGame.state
 
   return (
     <div>
-      <ActionSwitch action={action} tarotGame={tarotGame} />
+      <h3>Current player is {currentPlayer.id}</h3>
+      <ActionSwitch gameState={gameState} />
     </div>
   )
 }

@@ -8,7 +8,8 @@ import GameBoard from './GameBoard'
 export default function GameSwitch() {
   const { gameId } = useParams()
   const [user] = useContext(UserContext)
-  const [game, setGame] = useState({})
+  const gameState = useState({})
+  const [game, setGame] = gameState
 
   useEffect(() => {
     const fetchGame = async () => {
@@ -33,10 +34,10 @@ export default function GameSwitch() {
 
   switch (game.status) {
     case 'created':
-      return <GameDetail game={game}/>
+      return <GameDetail gameState={gameState}/>
     case 'started':
-      return <GameBoard game={game}/>
+      return <GameBoard gameState={gameState}/>
     default:
-      return <GameDetail game={game} />
+      return <GameDetail gameState={gameState} />
   }
 }

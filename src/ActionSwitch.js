@@ -5,23 +5,26 @@ import ActionBid from './ActionBid'
 import ActionDiscard from './ActionDiscard'
 import ActionPlay from './ActionPlay'
 
-export default function ActionSwitch({ action, tarotGame }) {
+export default function ActionSwitch({ gameState }) {
   const [user] = useContext(UserContext)
   const { gameId } = useParams()
+  const [game, setGame] = gameState
+  const [action] = game.tarotGame.actionsSequence
 
   const handleAction = async (payload) => {
     const data = { action, payload }
     const body = JSON.stringify(data)
-    await fetch(`http://localhost:8080/games/${gameId}/action`, { method: 'post', headers: { user, 'Content-Type': 'application/json' },  body })
+    const res = await fetch(`http://localhost:8080/games/${gameId}/action`, { method: 'post', headers: { user, 'Content-Type': 'application/json' },  body })
+    setGame(await res.json())
   }
 
   switch (action) {
     case 'bid':
-      return <ActionBid tarotGame={tarotGame} handleAction={handleAction} />
+      return <ActionBid game={game} handleAction={handleAction} />
     case 'discard':
-      return <ActionDiscard tarotGame={tarotGame} handleAction={handleAction} />
+      return <ActionDiscard game={game} handleAction={handleAction} />
     case 'play':
-      return <ActionPlay tarotGame={tarotGame} handleAction={handleAction} />
+      return <ActionPlay game={game} handleAction={handleAction} />
     default:
       return 'Action not recognized'
   }
