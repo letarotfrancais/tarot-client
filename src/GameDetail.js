@@ -61,12 +61,6 @@ export default function GameDetail({ gameState }) {
     }
   }, [started])
 
-  if (joined === 'done') {
-    return (
-      <Redirect to={`/games/${gameId}`} />
-    )
-  }
-
   if (deleted === 'done') {
     return (
       <Redirect to='/games' />

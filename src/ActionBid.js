@@ -22,7 +22,7 @@ export default function ActionBid({ game, handleAction }) {
 
       <h4>Hand ({hand.length})</h4>
       <ul>
-        {hand.map((card, index) => <li key={index}>{card.name}</li>)}
+        {hand.map((card, index) => <li key={index}>{card.color} {card.name}</li>)}
       </ul>
 
       <form onSubmit={event => handleActionEvent(event)}>

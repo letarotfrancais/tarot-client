@@ -10,16 +10,21 @@ export default function GameSwitch() {
   const [user] = useContext(UserContext)
   const gameState = useState({})
   const [game, setGame] = gameState
+  const [timer, setTimer] = useState(null)
+
+
+  const fetchGame = async () => {
+    try {
+      const res = await fetch(`http://localhost:8080/games/${gameId}`, { headers: { user } })
+      setGame(await res.json())
+    } catch(e) {
+      console.log('Something went wrong while attempting to get a game`s details', e)
+    }
+    clearTimeout(timer)
+    setTimer(setTimeout(fetchGame, 3000))
+  }
 
   useEffect(() => {
-    const fetchGame = async () => {
-      try {
-        let res = await fetch(`http://localhost:8080/games/${gameId}`, { headers: { user } })
-        setGame(await res.json())
-      } catch(e) {
-        console.log('Something went wrong while attempting to get a game`s details', e)
-      }
-    }
     fetchGame()
   }, [])
 
