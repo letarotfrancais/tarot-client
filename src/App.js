@@ -12,7 +12,7 @@ import {
 } from 'react-router-dom'
 
 function App() {
-  const userState = useState('anonymous')
+  const userState = useState('a')
   const [user, setUser] = userState
   return (
     <UserProvider value={userState}>

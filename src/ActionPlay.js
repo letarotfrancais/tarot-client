@@ -3,7 +3,7 @@ import UserContext from './UserContext'
 
 export default function ActionPlay({ tarotGame, handleAction }) {
   const [user] = useContext(UserContext)
-  const { hand } = tarotGame.state.players.find(p => p.id === user)
+  const { hand, tricks } = tarotGame.state.players.find(p => p.id === user)
   const { board } = tarotGame.state
 
   const handleActionEvent = (event) => {
@@ -20,17 +20,22 @@ export default function ActionPlay({ tarotGame, handleAction }) {
 
       <h4>Board ({board.length})</h4>
       <ul>
-        {board.map((card, index) => <li key={index}>{card.name}</li>)}
+       {board.map((card, index) => <li key={index}>{card.color} {card.name}</li>)}
       </ul>
 
       <form onSubmit={event => handleActionEvent(event)}>
         <h4>Hand ({hand.length})</h4>
         <ul>
-          {hand.map((card, index) => <li key={index}><label><input type="radio" name="card" value={card} /> {card.name}</label></li>)}
+          {hand.map((card, index) => <li key={index}><label><input type="radio" name="card" value={index} /> {card.color} {card.name}</label></li>)}
         </ul>
 
         <button type="submit">Play selected card</button>
       </form>
+
+      <h4>Tricks ({tricks.length})</h4>
+      <ul>
+       {tricks.map((card, index) => <li key={index}>{card.color} {card.name}</li>)}
+      </ul>
     </div>
   )
 }
