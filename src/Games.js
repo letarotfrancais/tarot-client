@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Games() {
-  const [timer, setTimer] = useState(null)
   const [games, setGames] = useState(null)
 
   const fetchGames = async () => {
@@ -12,12 +11,12 @@ export default function Games() {
     } catch(e) {
       console.log('Something went wrong while attempting to get games', e)
     }
-    clearTimeout(timer)
-    setTimer(setTimeout(fetchGames, 3000))
   }
 
   useEffect(() => {
     fetchGames()
+    const intervalId = setInterval(() => fetchGames(), 3000)
+    return () => clearTimeout(intervalId)
   }, [])
 
   if (!games) {

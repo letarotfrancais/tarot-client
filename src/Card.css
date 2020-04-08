@@ -1,0 +1,57 @@
+.card {
+  --height: 200px; /* meant to be overriden with the style="--height: 123;" attribute */
+  --ratio: calc(7 / 12);
+
+  display: inline-block;
+  position: relative;
+
+  border: 1px solid #c7c7c7;
+  border-radius: 8px;
+  /* box-shadow: 2px 2px 2px 2px #000000; */
+
+  padding: 1rem;
+
+  /* card ratio is 7 * 12 */
+
+  width: calc(var(--height) * var(--ratio));
+  height: var(--height);
+
+  text-align: center;
+}
+
+.card > span {
+  font-size: 5rem;
+  line-height: var(--height);
+}
+
+
+.card > i {
+  position: absolute;
+  margin: .5rem;
+}
+.card > i:first-child {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.card > i:last-child {
+  bottom: 0;
+  left: 0;
+}
+
+/* https://leaverou.github.io/css3patterns/#brady-bunch */
+.card.brady-bunch {
+  background-image:
+  radial-gradient(closest-side, transparent 0%, transparent 75%, #B6CC66 76%, #B6CC66 85%, #EDFFDB 86%, #EDFFDB 94%, #FFFFFF 95%, #FFFFFF 103%, #D9E6A7 104%, #D9E6A7 112%, #798B3C 113%, #798B3C 121%, #FFFFFF 122%, #FFFFFF 130%, #E0EAD7 131%, #E0EAD7 140%),
+  radial-gradient(closest-side, transparent 0%, transparent 75%, #B6CC66 76%, #B6CC66 85%, #EDFFDB 86%, #EDFFDB 94%, #FFFFFF 95%, #FFFFFF 103%, #D9E6A7 104%, #D9E6A7 112%, #798B3C 113%, #798B3C 121%, #FFFFFF 122%, #FFFFFF 130%, #E0EAD7 131%, #E0EAD7 140%);
+  background-size: 110px 110px;
+  background-color: #C8D3A7;
+  background-position: 0 0, 55px 55px;
+}
+
+
+/* https://www.heropatterns.com/ */
+.card.hideout {
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.13'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}

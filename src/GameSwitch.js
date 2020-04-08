@@ -10,8 +10,6 @@ export default function GameSwitch() {
   const [user] = useContext(UserContext)
   const gameState = useState({})
   const [game, setGame] = gameState
-  const [timer, setTimer] = useState(null)
-
 
   const fetchGame = async () => {
     try {
@@ -20,12 +18,12 @@ export default function GameSwitch() {
     } catch(e) {
       console.log('Something went wrong while attempting to get a game`s details', e)
     }
-    clearTimeout(timer)
-    setTimer(setTimeout(fetchGame, 3000))
   }
 
   useEffect(() => {
     fetchGame()
+    const intervalId = setInterval(() => fetchGame(), 3000)
+    return () => clearTimeout(intervalId)
   }, [])
 
   if (!game.id) {

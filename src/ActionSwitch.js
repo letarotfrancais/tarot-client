@@ -14,8 +14,13 @@ export default function ActionSwitch({ gameState }) {
   const handleAction = async (payload) => {
     const data = { action, payload }
     const body = JSON.stringify(data)
-    const res = await fetch(`http://localhost:8080/games/${gameId}/action`, { method: 'post', headers: { user, 'Content-Type': 'application/json' },  body })
-    setGame(await res.json())
+    try {
+      const res = await fetch(`http://localhost:8080/games/${gameId}/action`, { method: 'post', headers: { user, 'Content-Type': 'application/json' },  body })
+      setGame(await res.json())
+    } catch (e) {
+      console.log(e);
+    }
+
   }
 
   switch (action) {

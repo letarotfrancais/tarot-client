@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import UserContext from './UserContext'
+import Card from './Card'
 
 export default function ActionBid({ game, handleAction }) {
   const [user] = useContext(UserContext)
   const contracts = ['PASS', 'TAKE', 'GUARD']
-  const { tarotGame } = game
-  const { hand } = tarotGame.state.players.find(p => p.id === user)
-  const { currentPlayer } = game.tarotGame.state
+  const { players, currentPlayer } = game.tarotGame.state
+  const { hand } = players.find(p => p.id === user)
   const isCurrentPlayer = currentPlayer.id === user
 
   const handleActionEvent = (event) => {
@@ -22,7 +22,7 @@ export default function ActionBid({ game, handleAction }) {
 
       <h4>Hand ({hand.length})</h4>
       <ul>
-        {hand.map((card, index) => <li key={index}>{card.color} {card.name}</li>)}
+        {hand.map((card, index) => <li key={index}><Card card={card} /></li>)}
       </ul>
 
       <form onSubmit={event => handleActionEvent(event)}>

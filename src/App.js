@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { UserProvider } from './UserContext'
 import Home from './Home'
 import Games from './Games'
@@ -12,14 +12,12 @@ import {
 } from 'react-router-dom'
 
 function App() {
-  const userState = useState('a')
-  const [user, setUser] = userState
+  const storedUser = JSON.parse(localStorage.getItem('user'))
+  const userState = useState(storedUser)
+
   return (
     <UserProvider value={userState}>
       <div className="App">
-        <h4>
-          Logged in as <input type="text" value={user} onChange={event => setUser(event.target.value)} />
-        </h4>
         <Router>
           <nav>
             <ul>

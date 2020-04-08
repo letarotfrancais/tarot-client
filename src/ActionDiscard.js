@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import UserContext from './UserContext'
+import Card from './Card'
 
 export default function ActionDiscard({ game, handleAction }) {
   const [user] = useContext(UserContext)
-  const { tarotGame } = game
-  const { hand } = tarotGame.state.players.find(p => p.id === user)
-  const { currentPlayer } = game.tarotGame.state
-  const isCurrentPlayer = currentPlayer.id === user
+  const { players, taker } = game.tarotGame.state
+  const { hand } = players.find(p => p.id === user)
+  const isTaker = taker.id === user
 
   const handleActionEvent = (event) => {
     event.preventDefault()
@@ -22,10 +22,10 @@ export default function ActionDiscard({ game, handleAction }) {
       <form onSubmit={event => handleActionEvent(event)}>
         <h4>Hand ({hand.length})</h4>
         <ul>
-          {hand.map((card, index) => <li key={index}><label><input type="checkbox" name="card" value={card.id} /> {card.color} {card.name} </label></li>)}
+          {hand.map((card, index) => <li key={index}><label><input type="checkbox" name="card" value={card.id} /> <Card card={card} /></label></li>)}
         </ul>
 
-        {isCurrentPlayer ? <button type="submit">Discard selected cards</button> : `Waiting for ${currentPlayer.id} to discard.`}
+        {isTaker ? <button type="submit">Discard selected cards</button> : `Waiting for ${taker.id} to discard.`}
       </form>
     </div>
   )
