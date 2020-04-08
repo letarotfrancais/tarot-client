@@ -4,6 +4,7 @@ import UserContext from './UserContext'
 import ActionBid from './ActionBid'
 import ActionDiscard from './ActionDiscard'
 import ActionPlay from './ActionPlay'
+import './Action.css'
 
 export default function ActionSwitch({ gameState }) {
   const [user] = useContext(UserContext)

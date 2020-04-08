@@ -21,9 +21,7 @@ export default function ActionDiscard({ game, handleAction }) {
 
       <form onSubmit={event => handleActionEvent(event)}>
         <h4>Hand ({hand.length})</h4>
-        <ul>
-          {hand.map((card, index) => <li key={index}><label><input type="checkbox" name="card" value={card.id} /> <Card card={card} /></label></li>)}
-        </ul>
+        {hand.map((card, index) => <label className="selectable-card-container"><input key={index} type="checkbox" name="card" value={card.id} /> <Card card={card} /></label>)}
 
         {isTaker ? <button type="submit">Discard selected cards</button> : `Waiting for ${taker.id} to discard.`}
       </form>

@@ -21,9 +21,7 @@ export default function ActionBid({ game, handleAction }) {
       <h3>Bidding phase</h3>
 
       <h4>Hand ({hand.length})</h4>
-      <ul>
-        {hand.map((card, index) => <li key={index}><Card card={card} /></li>)}
-      </ul>
+      {hand.map((card, index) => <Card key={index} card={card} />)}
 
       <form onSubmit={event => handleActionEvent(event)}>
         <select name="contract">

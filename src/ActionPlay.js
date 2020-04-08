@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import UserContext from './UserContext'
 import Card from './Card'
+import Hand from './Hand'
 
 export default function ActionPlay({ game, handleAction }) {
   const [user] = useContext(UserContext)
@@ -21,23 +22,18 @@ export default function ActionPlay({ game, handleAction }) {
       <h3>Play phase</h3>
 
       <h4>Board ({board.length})</h4>
-      <ul>
-       {board.map((card, index) => <li key={index}> <Card card={card} /></li>)}
-      </ul>
+      {board.map((card, index) => <Card key={index} card={card} />)}
 
       <form onSubmit={event => handleActionEvent(event)}>
         <h4>Hand ({hand.length})</h4>
-        <ul>
-          {hand.map((card, index) => <li key={index}><label><input type="radio" name="card" value={index} />  <Card card={card} /></label></li>)}
-        </ul>
-
-        {isCurrentPlayer ? <button type="submit">Play selected card</button> : `Waiting for ${currentPlayer.id} to play.`}
+        <Hand cards={hand} />
+        <div className="action">
+          {isCurrentPlayer ? <button type="submit">Play selected card</button> : `Waiting for ${currentPlayer.id} to play.`}
+        </div>
       </form>
 
       <h4>Tricks ({tricks.length})</h4>
-      <ul>
-       {tricks.map((card, index) => <li key={index}> <Card card={card} /></li>)}
-      </ul>
+      {tricks.map((card, index) => <Card key={index} card={card} />)}
     </div>
   )
 }

@@ -16,7 +16,7 @@ export default function Card({ card }) {
   const className = ['card', theme].join(' ')
 
   return (
-    <div className={className} style={{ '--height': '12rem', color }}>
+    <div className={className} style={{ '--height': '8rem', color }}>
       <i>{abbr}</i>
       <span>{symbol}</span>
       <i>{abbr}</i>
