@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import UserContext from './UserContext'
 
 export default function Games() {
+  const [user] = useContext(UserContext)
   const [games, setGames] = useState(null)
 
   const fetchGames = async () => {
@@ -40,11 +42,19 @@ export default function Games() {
 
   return (
     <div>
-      <h2>Games</h2>
+      <h2>Games your playing in</h2>
       <ul>
-        {games.map(({ id }) => (
+        {games.filter(g => g.status === 'started').filter(g => g.players.includes(user)).map(({ id, owner, players}) => (
           <li key={id}>
-            <Link to={{ pathname: `/games/${id}` }} >{id}</Link>
+            <Link to={{ pathname: `/games/${id}` }} >Created by {owner}, joined by {players.join(', ')}</Link>
+          </li>
+        ))}
+      </ul>
+      <h2>Games waiting for players</h2>
+      <ul>
+        {games.filter(game => game.status === 'created').map(({ id, owner, players}) => (
+          <li key={id}>
+            <Link to={{ pathname: `/games/${id}` }} >Created by {owner}, joined by {players.join(', ')}</Link>
           </li>
         ))}
       </ul>
