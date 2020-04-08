@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { UserProvider } from './UserContext'
 import Home from './Home'
 import Games from './Games'
 import GameSwitch from './GameSwitch'
 import NewGame from './NewGame'
+import User from './User'
 import {
   BrowserRouter as Router,
   Switch,
@@ -30,6 +31,9 @@ function App() {
               </li>
               <li>
                 <Link to="/games/new">Create a new game</Link>
+              </li>
+              <li>
+                <User />
               </li>
             </ul>
           </nav>

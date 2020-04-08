@@ -13,8 +13,8 @@ export default function ActionPlay({ game, handleAction }) {
   const handleActionEvent = (event) => {
     event.preventDefault()
     const formData = new FormData(event.target)
-    const cardIndex = formData.get('card')
-    const card = hand[cardIndex]
+    const cardId = formData.get('card')
+    const card = hand.find(c => c.id === cardId)
     handleAction({ card })
   }
 

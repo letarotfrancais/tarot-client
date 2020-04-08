@@ -21,6 +21,7 @@ export default function Games() {
     return () => clearTimeout(intervalId)
   }, [])
 
+  // loading state
   if (!games) {
     return (
       <div>
@@ -30,7 +31,7 @@ export default function Games() {
     )
   }
 
-
+  // empty state
   if (games.length === 0) {
     return (
       <div>
@@ -46,7 +47,7 @@ export default function Games() {
       <ul>
         {games.filter(g => g.status === 'started').filter(g => g.players.includes(user)).map(({ id, owner, players}) => (
           <li key={id}>
-            <Link to={{ pathname: `/games/${id}` }} >Created by {owner}, joined by {players.join(', ')}</Link>
+            <Link to={{ pathname: `/games/${id}` }} >Created by {owner}, joined by {players.filter(p => p !== owner).join(', ')}</Link>
           </li>
         ))}
       </ul>
@@ -54,7 +55,7 @@ export default function Games() {
       <ul>
         {games.filter(game => game.status === 'created').map(({ id, owner, players}) => (
           <li key={id}>
-            <Link to={{ pathname: `/games/${id}` }} >Created by {owner}, joined by {players.join(', ')}</Link>
+            <Link to={{ pathname: `/games/${id}` }} >Created by {owner}, joined by {players.filter(p => p !== owner).join(', ')}</Link>
           </li>
         ))}
       </ul>
