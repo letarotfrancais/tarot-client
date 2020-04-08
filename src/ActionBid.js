@@ -27,7 +27,7 @@ export default function ActionBid({ game, handleAction }) {
         <select name="contract">
           {contracts.map(c => <option key={c} value={c}>{c}</option>)}
         </select>
-        {isCurrentPlayer ? <button type="submit">Place bid</button> : `Waiting for ${currentPlayer.id} to bid.`}
+        {isCurrentPlayer ? <button type="submit">Place bid</button> : <button disabled>Waiting for {currentPlayer.id} to bid</button>}
       </form>
     </div>
   )

@@ -10,6 +10,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+import './App.css'
 
 function App() {
   const storedUser = JSON.parse(localStorage.getItem('user'))
@@ -32,21 +33,22 @@ function App() {
               </li>
             </ul>
           </nav>
-
-          <Switch>
-            <Route path="/games/new">
-              <NewGame />
-            </Route>
-            <Route path="/games/:gameId">
-              <GameSwitch />
-            </Route>
-            <Route path="/games">
-              <Games />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
+          <main>
+            <Switch>
+              <Route path="/games/new">
+                <NewGame />
+              </Route>
+              <Route path="/games/:gameId">
+                <GameSwitch />
+              </Route>
+              <Route path="/games">
+                <Games />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </main>
         </Router>
       </div>
     </UserProvider>

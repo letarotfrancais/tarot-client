@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import UserContext from './UserContext'
 import Card from './Card'
+import './CardList.css'
 
 export default function ActionDiscard({ game, handleAction }) {
   const [user] = useContext(UserContext)
@@ -21,9 +22,11 @@ export default function ActionDiscard({ game, handleAction }) {
 
       <form onSubmit={event => handleActionEvent(event)}>
         <h4>Hand ({hand.length})</h4>
-        {hand.map((card, index) => <label className="selectable-card-container"><input key={index} type="checkbox" name="card" value={card.id} /> <Card card={card} /></label>)}
+        <div className="card-list">
+          {hand.map((card, index) => <label className="selectable-card-container"><input key={index} type="checkbox" name="card" value={card.id} /> <Card card={card} /></label>)}
+        </div>
 
-        {isTaker ? <button type="submit">Discard selected cards</button> : `Waiting for ${taker.id} to discard.`}
+        {isTaker ? <button type="submit">Discard selected cards</button> : <button disabled>Waiting for {taker.id} to discard</button>}
       </form>
     </div>
   )
