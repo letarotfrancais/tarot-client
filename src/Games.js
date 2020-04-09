@@ -8,7 +8,8 @@ export default function Games() {
 
   const fetchGames = async () => {
     try {
-      const res = await fetch('http://localhost:8080/games')
+      const authorization = `Bearer ${document.cookie.split('=')[1]}`
+      const res = await fetch('http://localhost:8080/games', { headers: { authorization }})
       setGames(await res.json())
     } catch(e) {
       console.log('Something went wrong while attempting to get games', e)
