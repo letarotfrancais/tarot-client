@@ -1,19 +1,19 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import UserContext from './UserContext'
+import SessionContext from './SessionContext'
 import GameDetail from './GameDetail'
 import GameBoard from './GameBoard'
 
 
 export default function GameSwitch() {
   const { gameId } = useParams()
-  const [user] = useContext(UserContext)
+  const [session] = useContext(SessionContext)
   const gameState = useState({})
   const [game, setGame] = gameState
 
   const fetchGame = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/games/${gameId}`, { headers: { user } })
+      const res = await fetch(`http://localhost:8080/games/${gameId}`, { headers: { authorization: `Bearer ${session.token}` } })
       setGame(await res.json())
     } catch(e) {
       console.log('Something went wrong while attempting to get a game`s details', e)

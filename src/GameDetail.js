@@ -7,10 +7,10 @@ import {
   useParams,
   Redirect
 } from 'react-router-dom'
-import UserContext from './UserContext'
+import SessionContext from './SessionContext'
 
 export default function GameDetail({ gameState }) {
-  const [user] = useContext(UserContext)
+  const [session] = useContext(SessionContext)
   const { gameId } = useParams()
   const [game, setGame] = gameState
   const [joined, setJoined] = useState(false)
@@ -21,7 +21,7 @@ export default function GameDetail({ gameState }) {
     if (joined === 'pending') {
       const joinGame = async () => {
         try {
-          const res = await fetch(`http://localhost:8080/games/${gameId}/join`, { headers: { user } })
+          const res = await fetch(`http://localhost:8080/games/${gameId}/join`, { headers: { authorization: `Bearer ${session.token}` } })
           setGame(await res.json())
           setJoined('done')
         } catch(e) {
@@ -36,7 +36,7 @@ export default function GameDetail({ gameState }) {
     if (deleted === 'pending') {
       const deleteGame = async () => {
         try {
-          fetch(`http://localhost:8080/games/${gameId}`, { method: 'delete', headers: { user } })
+          fetch(`http://localhost:8080/games/${gameId}`, { method: 'delete', headers: { authorization: `Bearer ${session.token}` } })
           setDeleted('done')
         } catch(e) {
           console.log('Something went wrong while attempting to delete game', gameId, e)
@@ -50,7 +50,7 @@ export default function GameDetail({ gameState }) {
     if (started === 'pending') {
       const startGame = async () => {
         try {
-          const res = fetch(`http://localhost:8080/games/${gameId}/start`, { headers: { user } })
+          const res = fetch(`http://localhost:8080/games/${gameId}/start`, { headers: { authorization: `Bearer ${session.token}` } })
           setGame(await res.json())
           setStarted('done')
         } catch(e) {
@@ -76,9 +76,9 @@ export default function GameDetail({ gameState }) {
     )
   }
 
-  const joinAction = !game.players.includes(user) ? <button type="button" onClick={() => setJoined('pending')}>Join this game</button> : 'You are a member of this game.'
-  const deleteAction = game.owner === user ? <button type="button" onClick={() => setDeleted('pending')}>Delete this game</button> : ''
-  const startAction = game.owner === user ?  <button type="button" onClick={() => setStarted('pending')}>Start this game</button> : ''
+  const joinAction = !game.players.includes(session.uuid) ? <button type="button" onClick={() => setJoined('pending')}>Join this game</button> : 'You are a member of this game.'
+  const deleteAction = game.owner === session.uuid ? <button type="button" onClick={() => setDeleted('pending')}>Delete this game</button> : ''
+  const startAction = game.owner === session.uuid ?  <button type="button" onClick={() => setStarted('pending')}>Start this game</button> : ''
 
   return (
     <div>

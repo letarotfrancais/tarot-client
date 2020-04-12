@@ -1,13 +1,13 @@
 import React, { useContext } from 'react'
-import UserContext from './UserContext'
+import SessionContext from './SessionContext'
 import Card from './Card'
 
 export default function ActionBid({ game, handleAction }) {
-  const [user] = useContext(UserContext)
+  const [session] = useContext(SessionContext)
   const contracts = ['PASS', 'TAKE', 'GUARD']
   const { players, currentPlayer } = game.tarotGame.state
-  const { hand } = players.find(p => p.id === user)
-  const isCurrentPlayer = currentPlayer.id === user
+  const { hand } = players.find(p => p.id === session.uuid)
+  const isCurrentPlayer = currentPlayer.id === session.uuid
 
   const handleActionEvent = (event) => {
     event.preventDefault()

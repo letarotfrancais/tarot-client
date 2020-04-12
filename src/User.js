@@ -1,25 +1,43 @@
 import React, { useEffect, useContext, useState } from 'react'
-import UserContext from './UserContext'
+import { useHistory } from 'react-router-dom';
+import jwt from 'jsonwebtoken'
+import SessionContext from './SessionContext'
+import './User.css'
 
 export default function User() {
-  const [user, setUser] = useContext(UserContext)
+  let history = useHistory()
+  const [session, setSession] = useContext(SessionContext)
   const [submitted, setSubmitted] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(user))
-  }, [user])
+    if (session) {
+      localStorage.setItem('session', JSON.stringify(session))
+      setSubmitted(false)
+
+    } else {
+      localStorage.removeItem('session')
+    }
+  }, [session])
 
   const login = async (email, password) => {
     try {
       let body = JSON.stringify({ email, password })
       const res = await fetch('http://localhost:8080/login', { method: 'post', headers: { 'Content-Type': 'application/json' }, body })
-      setUser(await res.json())
+      let session = await res.json().then(({ token }) => {
+        return Object.assign({ token }, jwt.decode(token))
+      })
+      setSession(session)
     } catch(e) {
       console.log('Something went wrong while attempting to login', e)
       setSubmitted(false)
     }
+  }
+
+  const logout = () => {
+    setSession(null)
+    history.push('/')
   }
 
   useEffect(() => {
@@ -28,20 +46,22 @@ export default function User() {
     }
   }, [submitted])
 
-  if (user) {
+  if (session) {
     return (
       <div>
-        <span>{user.displayName}</span>
-        <button type="button">Logout</button>
+        <span>{session.displayName}</span>
+        <button type="button" onClick={() => logout()}>Logout</button>
       </div>
     )
   }
 
   return (
     <form onSubmit={(event) => { event.preventDefault(); setSubmitted(true) }}>
-      <input type="text" placeholder="name@example.com" onChange={(event) => setEmail(event.target.value)}/>
-      <input type="password" placeholder="SecurePhrase" onChange={(event) => setPassword(event.target.value)}/>
-      <button type="submit">Login</button>
+      <fieldset disabled={submitted}>
+        <input type="text" placeholder="name@example.com" value={email} onChange={(event) => setEmail(event.target.value)}/>
+        <input type="password" placeholder="SecurePhrase" value={password} onChange={(event) => setPassword(event.target.value)}/>
+        <button type="submit">Login</button>
+      </fieldset>
     </form>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { UserProvider } from './UserContext'
+import { SessionProvider } from './SessionContext'
 import Home from './Home'
 import Games from './Games'
 import GameSwitch from './GameSwitch'
@@ -14,11 +14,11 @@ import {
 import './App.css'
 
 function App() {
-  const storedUser = JSON.parse(localStorage.getItem('user'))
-  const userState = useState(storedUser)
+  const storedSession = JSON.parse(localStorage.getItem('session'))
+  const sessionState = useState(storedSession)
 
   return (
-    <UserProvider value={userState}>
+    <SessionProvider value={sessionState}>
       <div className="App">
         <Router>
           <nav>
@@ -55,7 +55,7 @@ function App() {
           </main>
         </Router>
       </div>
-    </UserProvider>
+    </SessionProvider>
   )
 }
 

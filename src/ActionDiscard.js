@@ -1,13 +1,13 @@
 import React, { useContext } from 'react'
-import UserContext from './UserContext'
+import SessionContext from './SessionContext'
 import Card from './Card'
 import './CardList.css'
 
 export default function ActionDiscard({ game, handleAction }) {
-  const [user] = useContext(UserContext)
+  const [session] = useContext(SessionContext)
   const { players, taker } = game.tarotGame.state
-  const { hand } = players.find(p => p.id === user)
-  const isTaker = taker.id === user
+  const { hand } = players.find(p => p.id === session.uuid)
+  const isTaker = taker.id === session.uuid
 
   const handleActionEvent = (event) => {
     event.preventDefault()

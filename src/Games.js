@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import UserContext from './UserContext'
+import SessionContext from './SessionContext'
 
 export default function Games() {
-  const [user] = useContext(UserContext)
+  const [session] = useContext(SessionContext)
   const [games, setGames] = useState(null)
 
   const fetchGames = async () => {
     try {
-      const authorization = `Bearer ${document.cookie.split('=')[1]}`
-      const res = await fetch('http://localhost:8080/games', { headers: { authorization }})
+      const res = await fetch('http://localhost:8080/games', { headers: { authorization: `Bearer ${session.token}` }})
       setGames(await res.json())
     } catch(e) {
       console.log('Something went wrong while attempting to get games', e)
@@ -46,7 +45,7 @@ export default function Games() {
     <div>
       <h2>Games your playing in</h2>
       <ul>
-        {games.filter(g => g.status === 'started').filter(g => g.players.includes(user)).map(({ id, owner, players}) => (
+        {games.filter(g => g.status === 'started').filter(g => g.players.includes(session.uuid)).map(({ id, owner, players}) => (
           <li key={id}>
             <Link to={{ pathname: `/games/${id}` }} >Created by {owner}, joined by {players.filter(p => p !== owner).join(', ')}</Link>
           </li>

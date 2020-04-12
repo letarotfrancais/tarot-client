@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
-import UserContext from './UserContext'
+import SessionContext from './SessionContext'
 import Card from './Card'
 import Hand from './Hand'
 import './CardList.css'
 
 export default function ActionPlay({ game, handleAction }) {
-  const [user] = useContext(UserContext)
+  const [session] = useContext(SessionContext)
   const { players, currentPlayer, board } = game.tarotGame.state
-  const { hand, tricks } = players.find(p => p.id === user)
-  const isCurrentPlayer = currentPlayer.id === user
+  const { hand, tricks } = players.find(p => p.id === session.uuid)
+  const isCurrentPlayer = currentPlayer.id === session.uuid
 
   const handleActionEvent = (event) => {
     event.preventDefault()
