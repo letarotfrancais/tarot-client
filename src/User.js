@@ -48,20 +48,29 @@ export default function User() {
 
   if (session) {
     return (
-      <div>
-        <span>{session.displayName}</span>
-        <button type="button" onClick={() => logout()}>Logout</button>
+      <div className="user">
+        <p>Logged in as {session.displayName}</p>
+        <p><button type="button" onClick={() => logout()}>Logout</button></p>
       </div>
     )
   }
 
   return (
-    <form onSubmit={(event) => { event.preventDefault(); setSubmitted(true) }}>
-      <fieldset disabled={submitted}>
-        <input type="text" placeholder="name@example.com" value={email} onChange={(event) => setEmail(event.target.value)}/>
-        <input type="password" placeholder="SecurePhrase" value={password} onChange={(event) => setPassword(event.target.value)}/>
-        <button type="submit">Login</button>
-      </fieldset>
-    </form>
+    <div className="user">
+      <form onSubmit={(event) => { event.preventDefault(); setSubmitted(true) }}>
+        <fieldset disabled={submitted}>
+          <p>First things first: please login!</p>
+          <p>
+            <label for="email">Email: </label>
+            <input name="email" type="text" placeholder="name@example.com" value={email} onChange={(event) => setEmail(event.target.value)}/>
+            </p>
+          <p>
+            <label for="password">Password: </label>
+            <input name="password" type="password" placeholder="SecurePhrase" value={password} onChange={(event) => setPassword(event.target.value)}/>
+          </p>
+          <p><button type="submit">Login</button></p>
+        </fieldset>
+      </form>
+    </div>
   )
 }

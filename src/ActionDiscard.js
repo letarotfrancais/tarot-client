@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import SessionContext from './SessionContext'
 import Card from './Card'
 import './CardList.css'
+import './Hand.css'
 
 export default function ActionDiscard({ game, handleAction }) {
   const [session] = useContext(SessionContext)
@@ -19,9 +20,11 @@ export default function ActionDiscard({ game, handleAction }) {
   return (
     <div>
       <form onSubmit={event => handleActionEvent(event)}>
-        {isTaker ? <button type="submit">Discard selected cards</button> : <button disabled>Waiting for {taker.id} to discard</button>}
-        <div className="card-list">
-          {hand.map((card, index) => <label className="selectable-card-container"><input key={index} type="checkbox" name="card" value={card.id} /> <Card card={card} /></label>)}
+        <div className="action">
+          {isTaker ? <button type="submit">Discard selected cards</button> : <button disabled>Waiting for {taker.id} to discard</button>}
+        </div>
+        <div className="hand card-list">
+          {hand.map((card, index) => <label className="selectable-card-container" key={index}><input type="checkbox" name="card" value={card.id} /> <Card card={card} /></label>)}
         </div>
       </form>
     </div>

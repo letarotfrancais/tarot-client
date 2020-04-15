@@ -4,7 +4,7 @@ import './CardList.css'
 import './Hand.css'
 
 export default function Hand({ cards }) {
-  const cardsGroups = Object.values(['FOOL', 'TRUMP', 'CLUB', 'DIAMOND', 'HEART', 'SPADE'].reduce((acc, type) => {
+  const cardsGroups = Object.values(['HEART', 'CLUB', 'DIAMOND', 'SPADE', 'TRUMP', 'FOOL'].reduce((acc, type) => {
     acc[type] = cards.filter(card => card.id.includes(type))
     return acc
   }, {})).flat()

@@ -4,7 +4,6 @@ import Home from './Home'
 import Games from './Games'
 import GameSwitch from './GameSwitch'
 import NewGame from './NewGame'
-import User from './User'
 import {
   BrowserRouter as Router,
   Switch,
@@ -30,10 +29,9 @@ function App() {
                 <Link to="/games">Games</Link>
               </li>
               <li>
-                <Link to="/games/new">Create a new game</Link>
+                <Link to="/games/new">New game</Link>
               </li>
               <li>
-                <User />
               </li>
             </ul>
           </nav>

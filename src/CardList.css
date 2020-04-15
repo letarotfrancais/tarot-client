@@ -4,6 +4,8 @@
   align-items: center;
   overflow-x: auto;
   padding: 1.2rem;
+  border-radius: .2em;
+  box-shadow: 5px 0 8px -4px #c7c7c7, -5px 0 8px -4px #c7c7c7;
 }
 .card-list .card {
   flex: 0 0 auto;

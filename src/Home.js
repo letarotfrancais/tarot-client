@@ -1,11 +1,12 @@
 import React from 'react'
+import User from './User'
+import './Home.css'
 
 export default function Home() {
   return (
-    <div>
+    <div className="board">
       <h2>French Tarot</h2>
-      <p>Here you can play French Tarot.</p>
-      <p>Either join an existing game or create a new one.</p>
+      <User />
     </div>
   )
 }

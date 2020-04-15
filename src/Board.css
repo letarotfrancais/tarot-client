@@ -2,9 +2,13 @@
   flex-basis: content;
   justify-content: center;
 }
+.board .active legend {
+  font-weight: bold;
+}
 .board figure {
   margin: 0;
 }
 .board legend {
+  margin-top: .5rem;
   text-align: center;
 }

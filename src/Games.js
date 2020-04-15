@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import SessionContext from './SessionContext'
+import './Games.css'
 
 export default function Games() {
   const [session] = useContext(SessionContext)
@@ -34,7 +35,7 @@ export default function Games() {
   // empty state
   if (games.length === 0) {
     return (
-      <div>
+      <div className="games">
         <p>No game created yet.</p>
         <Link to="/games/new">Create a new game</Link>
       </div>
@@ -42,7 +43,7 @@ export default function Games() {
   }
 
   return (
-    <div>
+    <div className="games">
       <h2>Games your playing in</h2>
       <ul>
         {games.filter(g => g.status === 'started').filter(g => g.players.includes(session.uuid)).map(({ id, owner, players}) => (

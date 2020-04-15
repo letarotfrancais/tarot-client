@@ -1,11 +1,17 @@
 .action {
+  margin: 2rem;
+  background-color: #ffffff;
   display: flex;
   justify-content: center;
 }
-.action button {
-  font-size: 2rem;
+.action > * {
+  margin: 0 .4rem;
+}
+.action button, .action select {
+  font-size: 1.3rem;
   background-color: inherit;
-  border: 2px solid #c7c7c7;
-  border-radius: .3rem;
-  padding: .3rem;
+  border: 2px solid #454545;
+  border-radius: .1rem;
+  padding: .4rem;
+  box-shadow: 4px 0 8px -4px #c7c7c7;
 }

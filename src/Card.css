@@ -1,5 +1,5 @@
 .card {
-  --height: 4rem; /* meant to be overriden with the style="--height: 123;" attribute */
+  --height: 4rem; /* meant to be overriden with the style="--height: 123px;" attribute */
   --ratio: calc(7 / 12);
 
   display: inline-block;
@@ -9,25 +9,26 @@
   border-radius: 8px;
   /* box-shadow: 2px 2px 2px 2px #000000; */
 
-  padding: 1rem;
+  padding: 1em;
 
   /* card ratio is 7 * 12 */
 
   width: calc(var(--height) * var(--ratio));
   height: var(--height);
 
+  font-size: calc(var(--height) / 10);
   text-align: center;
 }
 
 .card > span {
-  font-size: 3rem;
+  font-size: 3em;
   line-height: var(--height);
 }
 
 
 .card > i {
   position: absolute;
-  margin: .5rem;
+  margin: .5em;
 }
 .card > i:first-child {
   position: absolute;

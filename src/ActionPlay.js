@@ -3,6 +3,7 @@ import SessionContext from './SessionContext'
 import Card from './Card'
 import Hand from './Hand'
 import './CardList.css'
+import './Tricks.css'
 
 export default function ActionPlay({ game, handleAction }) {
   const [session] = useContext(SessionContext)
@@ -27,9 +28,8 @@ export default function ActionPlay({ game, handleAction }) {
         <Hand cards={hand} />
       </form>
 
-      <h4>Tricks ({tricks.length / players.length})</h4>
-      <div className="card-list">
-        {tricks.map((card, index) => <Card key={index} card={card} />)}
+      <div className="tricks card-list">
+        {tricks.map((card, index) => <Card key={index} card={card} height="4rem"/>)}
       </div>
     </div>
   )
