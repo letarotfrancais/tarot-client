@@ -1,8 +1,11 @@
 .card-list {
+  height: 100%;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  overflow-x: auto;
+  padding: 1.2rem;
 }
-
 .card-list .card {
-  margin: .5rem;
+  flex: 0 0 auto;
+  margin: 0 .3rem;
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import Card from './Card'
 import './CardList.css'
+import './Hand.css'
 
 export default function Hand({ cards }) {
   const cardsGroups = Object.values(['FOOL', 'TRUMP', 'CLUB', 'DIAMOND', 'HEART', 'SPADE'].reduce((acc, type) => {

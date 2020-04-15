@@ -1,8 +1,11 @@
 .action {
-  padding: 2rem;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
-
 .action button {
   font-size: 2rem;
+  background-color: inherit;
+  border: 2px solid #c7c7c7;
+  border-radius: .3rem;
+  padding: .3rem;
 }

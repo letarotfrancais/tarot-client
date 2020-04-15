@@ -1,0 +1,10 @@
+.board.card-list {
+  flex-basis: content;
+  justify-content: center;
+}
+.board figure {
+  margin: 0;
+}
+.board legend {
+  text-align: center;
+}

@@ -2,6 +2,10 @@ import React from 'react'
 import './Card.css'
 
 export default function Card({ card }) {
+  if (!card) {
+    return <div className="card hideout placeholder" style={{ '--height': '6rem' }}><span>⌛</span></div>
+  }
+
   const abbr = isNaN(parseInt(card.name)) ? card.name[0] : parseInt(card.name)
   const suitPropsMap = {
     'HEART': { color: 'red', symbol: '♥' },
@@ -16,7 +20,7 @@ export default function Card({ card }) {
   const className = ['card', theme].join(' ')
 
   return (
-    <div className={className} style={{ '--height': '8rem', color }}>
+    <div className={className} style={{ '--height': '6rem', color }}>
       <i>{abbr}</i>
       <span>{symbol}</span>
       <i>{abbr}</i>

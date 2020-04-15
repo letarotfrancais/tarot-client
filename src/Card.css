@@ -1,5 +1,5 @@
 .card {
-  --height: 200px; /* meant to be overriden with the style="--height: 123;" attribute */
+  --height: 4rem; /* meant to be overriden with the style="--height: 123;" attribute */
   --ratio: calc(7 / 12);
 
   display: inline-block;
@@ -20,7 +20,7 @@
 }
 
 .card > span {
-  font-size: 5rem;
+  font-size: 3rem;
   line-height: var(--height);
 }
 
@@ -32,11 +32,12 @@
 .card > i:first-child {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
 }
 .card > i:last-child {
   bottom: 0;
-  left: 0;
+  right: 0;
+  transform: rotate(180deg);
 }
 
 /* https://www.heropatterns.com/ */
@@ -61,4 +62,8 @@
 }
 .selectable-card-container input:checked + .card {
   border: 2px solid black;
+}
+
+.card.placeholder {
+  border-style: dashed;
 }
