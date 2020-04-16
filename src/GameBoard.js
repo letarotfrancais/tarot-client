@@ -6,13 +6,20 @@ import './Board.css'
 
 export default function GameBoard({ gameState }) {
   const [game] = gameState
+  const { players: users } = game
   const { board, players, currentPlayer } = game.tarotGame.state
-  const displayName = player => player.id.split('-')[0]
 
   return (
     <div>
       <div className="board card-list">
-        {players.map((player, index) => <div key={player.id} className={player.id === currentPlayer.id ? 'active': ''}><figure><Card card={board[index]} /></figure><legend>{displayName(player)}</legend></div>)}
+        {users.map((user, index) => {
+          return (
+            <div key={index} className={user.uuid === currentPlayer.id ? 'active': ''}>
+              <figure><Card card={board[index]} /></figure>
+              <legend>{user.displayName}</legend>
+            </div>
+          )}
+        )}
       </div>
 
       <ActionSwitch gameState={gameState} />

@@ -61,11 +61,11 @@ export default function User() {
         <fieldset disabled={submitted}>
           <p>First things first: please login!</p>
           <p>
-            <label for="email">Email: </label>
+            <label htmlFor="email">Email: </label>
             <input name="email" type="text" placeholder="name@example.com" value={email} onChange={(event) => setEmail(event.target.value)}/>
             </p>
           <p>
-            <label for="password">Password: </label>
+            <label htmlFor="password">Password: </label>
             <input name="password" type="password" placeholder="SecurePhrase" value={password} onChange={(event) => setPassword(event.target.value)}/>
           </p>
           <p><button type="submit">Login</button></p>

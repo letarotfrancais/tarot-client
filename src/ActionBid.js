@@ -8,6 +8,8 @@ export default function ActionBid({ game, handleAction }) {
   const [session] = useContext(SessionContext)
   const contracts = ['PASS', 'TAKE', 'GUARD']
   const { players, currentPlayer } = game.tarotGame.state
+  const { players: users } = game
+  const currentUser = users.find(u => u.uuid === currentPlayer.id)
   const { hand } = players.find(p => p.id === session.uuid)
   const isCurrentPlayer = currentPlayer.id === session.uuid
 
@@ -24,7 +26,7 @@ export default function ActionBid({ game, handleAction }) {
         <select name="contract">
           {contracts.map(c => <option key={c} value={c}>{c}</option>)}
         </select>
-        {isCurrentPlayer ? <button type="submit">Place bid</button> : <button disabled>Waiting for {currentPlayer.id} to bid</button>}
+        {isCurrentPlayer ? <button type="submit">Place bid</button> : <button disabled>Waiting for {currentUser.displayName} to bid</button>}
       </form>
 
       <div className="hand card-list">

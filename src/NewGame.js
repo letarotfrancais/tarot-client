@@ -5,6 +5,7 @@ import React, {
 } from 'react'
 import { Redirect } from 'react-router-dom'
 import SessionContext from './SessionContext'
+import './NewGame.css'
 
 export default function NewGame() {
   const [session] = useContext(SessionContext)
@@ -32,7 +33,7 @@ export default function NewGame() {
   }
 
   return (
-    <div>
+    <div className="new-game">
       <h2>New game</h2>
       <p>You'll create a new game and join it as {session.displayName}.</p>
       <button type="button" onClick={() => setClicked(true)}>Create new game</button>

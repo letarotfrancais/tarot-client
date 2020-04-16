@@ -7,7 +7,9 @@ import './Tricks.css'
 
 export default function ActionPlay({ game, handleAction }) {
   const [session] = useContext(SessionContext)
+  const { players: users } = game
   const { players, currentPlayer } = game.tarotGame.state
+  const currentUser = users.find(u => u.uuid === currentPlayer.id)
   const { hand, tricks } = players.find(p => p.id === session.uuid)
   const isCurrentPlayer = currentPlayer.id === session.uuid
 
@@ -23,7 +25,7 @@ export default function ActionPlay({ game, handleAction }) {
     <div>
       <form onSubmit={event => handleActionEvent(event)}>
         <div className="action">
-          {isCurrentPlayer ? <button type="submit">Play selected card</button> : <button disabled>Waiting for {currentPlayer.id} to play</button>}
+          {isCurrentPlayer ? <button type="submit">Play selected card</button> : <button disabled>Waiting for {currentUser.displayName} to play</button>}
         </div>
         <Hand cards={hand} />
       </form>

@@ -7,6 +7,8 @@ import './Hand.css'
 export default function ActionDiscard({ game, handleAction }) {
   const [session] = useContext(SessionContext)
   const { players, taker } = game.tarotGame.state
+  const { players: users } = game
+  const takerUser = users.find(u => u.uuid === taker.id)
   const { hand } = players.find(p => p.id === session.uuid)
   const isTaker = taker.id === session.uuid
 
@@ -21,7 +23,7 @@ export default function ActionDiscard({ game, handleAction }) {
     <div>
       <form onSubmit={event => handleActionEvent(event)}>
         <div className="action">
-          {isTaker ? <button type="submit">Discard selected cards</button> : <button disabled>Waiting for {taker.id} to discard</button>}
+          {isTaker ? <button type="submit">Discard selected cards</button> : <button disabled>Waiting for {takerUser.displayName} to discard</button>}
         </div>
         <div className="hand card-list">
           {hand.map((card, index) => <label className="selectable-card-container" key={index}><input type="checkbox" name="card" value={card.id} /> <Card card={card} /></label>)}

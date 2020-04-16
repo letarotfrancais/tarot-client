@@ -8,6 +8,7 @@ import {
   Redirect
 } from 'react-router-dom'
 import SessionContext from './SessionContext'
+import './GameDetail.css'
 
 export default function GameDetail({ gameState }) {
   const [session] = useContext(SessionContext)
@@ -69,28 +70,28 @@ export default function GameDetail({ gameState }) {
 
   if (!game.id) {
     return (
-      <div>
+      <div className="game-detail">
         <h2>Game detail</h2>
         <p>Loading...</p>
       </div>
     )
   }
 
-  const joinAction = !game.players.includes(session.uuid) ? <button type="button" onClick={() => setJoined('pending')}>Join this game</button> : 'You are a member of this game.'
-  const deleteAction = game.owner === session.uuid ? <button type="button" onClick={() => setDeleted('pending')}>Delete this game</button> : ''
-  const startAction = game.owner === session.uuid ?  <button type="button" onClick={() => setStarted('pending')}>Start this game</button> : ''
+  const joinAction = !game.players.some(p => p.uuid === session.uuid) ? <button type="button" onClick={() => setJoined('pending')}>Join this game</button> : 'You are a member of this game.'
+  const deleteAction = game.owner.uuid === session.uuid ? <button type="button" onClick={() => setDeleted('pending')}>Delete this game</button> : ''
+  const startAction = game.owner.uuid === session.uuid ?  <button type="button" onClick={() => setStarted('pending')}>Start this game</button> : ''
 
   return (
-    <div>
+    <div className="game-detail">
       <h2>Game detail</h2>
-      <p>Owner: {game.owner}</p>
+      <p>Owner: {game.owner.displayName}</p>
       <p>{deleteAction}</p>
       <p>{joinAction}</p>
       <p>{startAction}</p>
       <h3>Players</h3>
       <ul>
         {game.players.map((player, index) => {
-          return <li key={index}>{player}</li>
+          return <li key={index}>{player.displayName}</li>
         })}
       </ul>
     </div>
