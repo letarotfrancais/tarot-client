@@ -48,7 +48,7 @@ export default function Games() {
       <ul>
         {games.filter(g => g.status === 'started').filter(g => g.players.some(p => p.uuid === session.uuid)).map(({ id, owner, players}) => (
           <li key={id}>
-            <Link to={{ pathname: `/games/${id}` }} >Created by {owner.displayName}, joined by {players.filter(p => p.uud !== owner.uuid).map(p => p.displayName).join(', ')}</Link>
+            <Link to={{ pathname: `/games/${id}` }} >Created by {owner.displayName}, joined by {players.filter(p => p.uuid !== owner.uuid).map(p => p.displayName).join(', ')}</Link>
           </li>
         ))}
       </ul>

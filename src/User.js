@@ -49,7 +49,7 @@ export default function User() {
   if (session) {
     return (
       <div className="user">
-        <p>Logged in as {session.displayName}</p>
+        <p>Welcome {session.displayName}!</p>
         <p><button type="button" onClick={() => logout()}>Logout</button></p>
       </div>
     )
