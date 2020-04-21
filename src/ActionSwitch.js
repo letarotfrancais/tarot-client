@@ -16,7 +16,7 @@ export default function ActionSwitch({ gameState }) {
     const data = { action, payload }
     const body = JSON.stringify(data)
     try {
-      const res = await fetch(`http://localhost:8080/games/${gameId}/action`, { method: 'post', headers: { authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },  body })
+      const res = await fetch(`http://api.tarot.toncar.fr/games/${gameId}/action`, { method: 'post', headers: { authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },  body })
       setGame(await res.json())
     } catch (e) {
       console.log(e);

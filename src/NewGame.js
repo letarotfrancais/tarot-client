@@ -15,7 +15,7 @@ export default function NewGame() {
     if (clicked) {
       const createGame = async () => {
         try {
-          let rest = await fetch('http://localhost:8080/games', { method: 'post', headers: { authorization: `Bearer ${session.token}` } })
+          let rest = await fetch('http://api.tarot.toncar.fr/games', { method: 'post', headers: { authorization: `Bearer ${session.token}` } })
           let { id } = await rest.json()
           setGameId(id)
         } catch(e) {

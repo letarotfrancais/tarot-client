@@ -13,7 +13,7 @@ export default function GameSwitch() {
 
   const fetchGame = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/games/${gameId}`, { headers: { authorization: `Bearer ${session.token}` } })
+      const res = await fetch(`http://api.tarot.toncar.fr/games/${gameId}`, { headers: { authorization: `Bearer ${session.token}` } })
       setGame(await res.json())
     } catch(e) {
       console.log('Something went wrong while attempting to get a game`s details', e)

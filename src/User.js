@@ -24,7 +24,7 @@ export default function User() {
   const login = async (email, password) => {
     try {
       let body = JSON.stringify({ email, password })
-      const res = await fetch('http://localhost:8080/login', { method: 'post', headers: { 'Content-Type': 'application/json' }, body })
+      const res = await fetch('http://api.tarot.toncar.fr/login', { method: 'post', headers: { 'Content-Type': 'application/json' }, body })
       let session = await res.json().then(({ token }) => {
         return Object.assign({ token }, jwt.decode(token))
       })
