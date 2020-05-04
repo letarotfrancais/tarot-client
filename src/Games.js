@@ -9,7 +9,7 @@ export default function Games() {
 
   const fetchGames = async () => {
     try {
-      const res = await fetch('http://api.tarot.toncar.fr/games', { headers: { authorization: `Bearer ${session.token}` }})
+      const res = await fetch('https://api.letarotfrancais.com/games', { headers: { authorization: `Bearer ${session.token}` }})
       setGames(await res.json())
     } catch(e) {
       console.log('Something went wrong while attempting to get games', e)

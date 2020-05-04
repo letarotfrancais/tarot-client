@@ -22,7 +22,7 @@ export default function GameDetail({ gameState }) {
     if (joined === 'pending') {
       const joinGame = async () => {
         try {
-          const res = await fetch(`http://api.tarot.toncar.fr/games/${gameId}/join`, { headers: { authorization: `Bearer ${session.token}` } })
+          const res = await fetch(`https://api.letarotfrancais.com/games/${gameId}/join`, { headers: { authorization: `Bearer ${session.token}` } })
           setGame(await res.json())
           setJoined('done')
         } catch(e) {
@@ -37,7 +37,7 @@ export default function GameDetail({ gameState }) {
     if (deleted === 'pending') {
       const deleteGame = async () => {
         try {
-          fetch(`http://api.tarot.toncar.fr/games/${gameId}`, { method: 'delete', headers: { authorization: `Bearer ${session.token}` } })
+          fetch(`https://api.letarotfrancais.com/games/${gameId}`, { method: 'delete', headers: { authorization: `Bearer ${session.token}` } })
           setDeleted('done')
         } catch(e) {
           console.log('Something went wrong while attempting to delete game', gameId, e)
@@ -51,7 +51,7 @@ export default function GameDetail({ gameState }) {
     if (started === 'pending') {
       const startGame = async () => {
         try {
-          const res = fetch(`http://api.tarot.toncar.fr/games/${gameId}/start`, { headers: { authorization: `Bearer ${session.token}` } })
+          const res = fetch(`https://api.letarotfrancais.com/games/${gameId}/start`, { headers: { authorization: `Bearer ${session.token}` } })
           setGame(await res.json())
           setStarted('done')
         } catch(e) {
