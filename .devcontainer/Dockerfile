@@ -1,4 +1,3 @@
-FROM node:13-alpine
+FROM alpine
 
-RUN apk add --no-cache git curl; \
-    yarn global add typescript
+RUN apk add --no-cache git curl nodejs yarn
