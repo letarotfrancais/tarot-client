@@ -5,6 +5,7 @@ import React, {
 } from 'react'
 import { Redirect } from 'react-router-dom'
 import SessionContext from './SessionContext'
+import { fetchAPI } from './APIService'
 import './NewGame.css'
 
 export default function NewGame() {
@@ -15,8 +16,7 @@ export default function NewGame() {
     if (clicked) {
       const createGame = async () => {
         try {
-          let rest = await fetch('https://api.letarotfrancais.com/games', { method: 'post', headers: { authorization: `Bearer ${session.token}` } })
-          let { id } = await rest.json()
+          let { id } = await fetchAPI(`games`, { method: 'post' })
           setGameId(id)
         } catch(e) {
           console.log('Something went wrong while attempting to create a new game', e)
@@ -24,6 +24,7 @@ export default function NewGame() {
       }
       createGame()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clicked]);
 
   if (gameId) {

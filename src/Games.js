@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import SessionContext from './SessionContext'
+import { fetchAPI } from './APIService'
 import './Games.css'
 
 export default function Games() {
@@ -9,8 +10,7 @@ export default function Games() {
 
   const fetchGames = async () => {
     try {
-      const res = await fetch('https://api.letarotfrancais.com/games', { headers: { authorization: `Bearer ${session.token}` }})
-      setGames(await res.json())
+      setGames(await fetchAPI('games'))
     } catch(e) {
       console.log('Something went wrong while attempting to get games', e)
     }

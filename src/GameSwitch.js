@@ -1,20 +1,17 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import SessionContext from './SessionContext'
 import GameDetail from './GameDetail'
 import GameBoard from './GameBoard'
-
+import { fetchAPI } from './APIService'
 
 export default function GameSwitch() {
   const { gameId } = useParams()
-  const [session] = useContext(SessionContext)
   const gameState = useState({})
   const [game, setGame] = gameState
 
   const fetchGame = async () => {
     try {
-      const res = await fetch(`https://api.letarotfrancais.com/games/${gameId}`, { headers: { authorization: `Bearer ${session.token}` } })
-      setGame(await res.json())
+      setGame(await fetchAPI(`games/${gameId}`))
     } catch(e) {
       console.log('Something went wrong while attempting to get a game`s details', e)
     }
@@ -24,6 +21,7 @@ export default function GameSwitch() {
     fetchGame()
     const intervalId = setInterval(() => fetchGame(), 3000)
     return () => clearTimeout(intervalId)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (!game.id) {

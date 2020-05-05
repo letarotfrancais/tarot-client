@@ -3,7 +3,7 @@ import './Card.css'
 
 export default function Card({ card, height }) {
   if (!card) {
-    return <div className="card hideout placeholder" style={{ '--height': '7rem' }}><span>⌛</span></div>
+    return <div className="card hideout placeholder" style={{ '--height': '7rem' }}><span role="img" aria-label="Waiting for player">⌛</span></div>
   }
 
   const abbr = isNaN(parseInt(card.name)) ? card.name[0] : parseInt(card.name)

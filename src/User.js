@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken'
 import SessionContext from './SessionContext'
+import { fetchAPI } from './APIService'
 import './User.css'
 
 export default function User() {
@@ -21,17 +22,13 @@ export default function User() {
     }
   }, [session])
 
-  const login = async (email, password) => {
+  const login = async () => {
     try {
-      let body = JSON.stringify({ email, password })
-      const res = await fetch('https://api.letarotfrancais.com/login', { method: 'post', headers: { 'Content-Type': 'application/json' }, body })
-      let session = await res.json().then(({ token }) => {
-        return Object.assign({ token }, jwt.decode(token))
-      })
+      const { token } = await fetchAPI('login', { method: 'post', body: { email, password } })
+      const session = Object.assign({ token }, jwt.decode(token))
       setSession(session)
-    } catch(e) {
-      console.log('Something went wrong while attempting to login', e)
-      setSubmitted(false)
+    } catch (e) {
+      console.log('Something went wrong when attempting to login')
     }
   }
 
@@ -39,12 +36,6 @@ export default function User() {
     setSession(null)
     history.push('/')
   }
-
-  useEffect(() => {
-    if (submitted) {
-      login(email, password)
-    }
-  }, [submitted])
 
   if (session) {
     return (
@@ -57,7 +48,7 @@ export default function User() {
 
   return (
     <div className="user">
-      <form onSubmit={(event) => { event.preventDefault(); setSubmitted(true) }}>
+      <form onSubmit={(event) => { event.preventDefault(); login() }}>
         <fieldset disabled={submitted}>
           <p>First things first: please login!</p>
           <p>

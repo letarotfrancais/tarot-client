@@ -7,7 +7,7 @@ import './Board.css'
 export default function GameBoard({ gameState }) {
   const [game] = gameState
   const { players: users } = game
-  const { board, players, currentPlayer } = game.tarotGame.state
+  const { board, currentPlayer } = game.tarotGame.state
 
   return (
     <div>

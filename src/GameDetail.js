@@ -8,6 +8,7 @@ import {
   Redirect
 } from 'react-router-dom'
 import SessionContext from './SessionContext'
+import { fetchAPI } from './APIService'
 import './GameDetail.css'
 
 export default function GameDetail({ gameState }) {
@@ -22,8 +23,7 @@ export default function GameDetail({ gameState }) {
     if (joined === 'pending') {
       const joinGame = async () => {
         try {
-          const res = await fetch(`https://api.letarotfrancais.com/games/${gameId}/join`, { headers: { authorization: `Bearer ${session.token}` } })
-          setGame(await res.json())
+          setGame(await fetchAPI(`games/${gameId}`))
           setJoined('done')
         } catch(e) {
           console.log('Something went wrong while attempting to join game', gameId, e)
@@ -31,13 +31,14 @@ export default function GameDetail({ gameState }) {
       }
       joinGame()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [joined])
 
   useEffect(() => {
     if (deleted === 'pending') {
       const deleteGame = async () => {
         try {
-          fetch(`https://api.letarotfrancais.com/games/${gameId}`, { method: 'delete', headers: { authorization: `Bearer ${session.token}` } })
+          await fetchAPI(`games/${gameId}`, { method: 'delete' })
           setDeleted('done')
         } catch(e) {
           console.log('Something went wrong while attempting to delete game', gameId, e)
@@ -45,14 +46,14 @@ export default function GameDetail({ gameState }) {
       }
       deleteGame()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deleted])
 
   useEffect(() => {
     if (started === 'pending') {
       const startGame = async () => {
         try {
-          const res = fetch(`https://api.letarotfrancais.com/games/${gameId}/start`, { headers: { authorization: `Bearer ${session.token}` } })
-          setGame(await res.json())
+          setGame(await fetchAPI(`games/${gameId}/start`))
           setStarted('done')
         } catch(e) {
           console.log('Something went wrong while attempting to start game', gameId, e)
@@ -60,6 +61,7 @@ export default function GameDetail({ gameState }) {
       }
       startGame()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [started])
 
   if (deleted === 'done') {
