@@ -1,5 +1,5 @@
 export function fetchAPI(path, options) {
-  const baseURL = 'https://api.letarotfrancais.com'
+  const baseURL = process.env.NODE_ENV === 'production' ? 'https://api.letarotfrancais.com' : '/'
   const session = JSON.parse(localStorage.getItem('session'))
 
   // Defaults headers
