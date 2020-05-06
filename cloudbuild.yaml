@@ -1,0 +1,9 @@
+steps:
+  - name: node
+    args: ['yarn', 'install']
+  - name: node
+    args: ['yarn', 'build']
+  - name: gcr.io/cloud-builders/gsutil
+    args: ['-m', 'rm', 'gs://letarotfrancais-client/**']
+  - name: gcr.io/cloud-builders/gsutil
+    args: ['-m', 'cp', './build/*', 'gs://letarotfrancais-client']
